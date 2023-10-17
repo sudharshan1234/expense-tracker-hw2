@@ -1,11 +1,17 @@
+// To apply immutablility and encapsulation for transaction List, it is made both private and final.
+
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javafx.beans.binding.When;
+
 
 public class ExpenseTrackerModel {
 
-  public List<Transaction> transactions;
+  private final List<Transaction> transactions;
 
   public ExpenseTrackerModel() {
     transactions = new ArrayList<>(); 
@@ -20,7 +26,7 @@ public class ExpenseTrackerModel {
   }
 
   public List<Transaction> getTransactions() {
-    return transactions;
+    return Collections.unmodifiableList(transactions);
   }
 
 }
