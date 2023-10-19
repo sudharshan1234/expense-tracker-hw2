@@ -9,6 +9,7 @@ import model.ExpenseTrackerModel;
 import view.ExpenseTrackerView;
 import model.Transaction;
 import controller.InputValidation;
+import filters.AmountFilter;
 import filters.CategoryFilter;
 
 public class ExpenseTrackerApp {
@@ -35,6 +36,18 @@ public class ExpenseTrackerApp {
       if (!added) {
         JOptionPane.showMessageDialog(view, "Invalid amount or category entered");
         view.toFront();
+      }
+    });
+
+    view.getFilterAmountBtn().addActionListener(e -> {
+      // Get transaction data from view
+      double maxAmount = view.getMaxAmountField();
+      double minAmount = view.getMinAmountField();
+      if (!InputValidation.isValidAmount(maxAmount) || !InputValidation.isValidAmount(minAmount)) {
+        JOptionPane.showMessageDialog(view, "Invalid amount entered in the filter");
+        view.toFront();
+      } else {
+        controller.applyFilter(new AmountFilter(minAmount, maxAmount));
       }
     });
 

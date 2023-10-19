@@ -17,10 +17,13 @@ public class ExpenseTrackerView extends JFrame {
 
   private JTable transactionsTable;
   private JButton addTransactionBtn;
+  private JButton filterAmountBtn;
   private JFormattedTextField amountField;
   private JTextField categoryField;
   private DefaultTableModel model;
   private JComboBox<String> categoryDropdown;
+  private JFormattedTextField minAmountField;
+  private JFormattedTextField maxAmountField;
 
   public ExpenseTrackerView() {
     setTitle("Expense Tracker"); // Set title
@@ -30,6 +33,7 @@ public class ExpenseTrackerView extends JFrame {
     this.model = new DefaultTableModel(columnNames, 0);
 
     addTransactionBtn = new JButton("Add Transaction");
+    filterAmountBtn = new JButton("Filter by Amount");
 
     String[] categories = { "all", "food", "travel", "bills", "entertainment", "other" }; // Replace with your actual
     // categories
@@ -39,11 +43,25 @@ public class ExpenseTrackerView extends JFrame {
     JLabel amountLabel = new JLabel("Amount:");
     NumberFormat format = NumberFormat.getNumberInstance();
 
+    minAmountField = new JFormattedTextField(format);
+    maxAmountField = new JFormattedTextField(format);
+    minAmountField.setColumns(5);
+    maxAmountField.setColumns(5);
+
     amountField = new JFormattedTextField(format);
     amountField.setColumns(10);
 
     JLabel categoryLabel = new JLabel("Category:");
     categoryField = new JTextField(10);
+
+    JPanel filterPanel = new JPanel();
+    filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
+
+    filterPanel.add(new JLabel("Min Amount:"));
+    filterPanel.add(minAmountField);
+    filterPanel.add(new JLabel("Max Amount:"));
+    filterPanel.add(maxAmountField);
+    filterPanel.add(filterAmountBtn);
 
     // Create table
     transactionsTable = new JTable(model);
@@ -69,6 +87,7 @@ public class ExpenseTrackerView extends JFrame {
     add(buttonPanel, BorderLayout.SOUTH);
 
     JPanel combinedPanel = new JPanel(new GridLayout(2, 1));
+    combinedPanel.add(filterPanel);
     combinedPanel.add(categoryFilterPanel);
 
     add(combinedPanel, BorderLayout.WEST);
@@ -90,7 +109,8 @@ public class ExpenseTrackerView extends JFrame {
         if (row >= 0 && row < originalTransactions.size()) {
           Transaction currentTransaction = originalTransactions.get(row);
 
-          if (filteredTransactions.contains(currentTransaction)) {
+          if (filteredTransactions.contains(currentTransaction)
+              && filteredTransactions.size() != originalTransactions.size()) {
             c.setBackground(new Color(173, 255, 168)); // Set background color to green
           } else {
             c.setBackground(Color.white); // Set background color to default
@@ -133,6 +153,10 @@ public class ExpenseTrackerView extends JFrame {
     return addTransactionBtn;
   }
 
+  public JButton getFilterAmountBtn() {
+    return filterAmountBtn;
+  }
+
   public JComboBox<String> getCategoryDropdown() {
     return categoryDropdown;
   }
@@ -144,6 +168,22 @@ public class ExpenseTrackerView extends JFrame {
   // Other view methods
   public JTable getTransactionsTable() {
     return transactionsTable;
+  }
+
+  public double getMinAmountField() {
+    if (minAmountField.getText().isEmpty()) {
+      return Double.MIN_VALUE; // Return a default value or handle this case appropriately
+    } else {
+      return Double.parseDouble(minAmountField.getText());
+    }
+  }
+
+  public double getMaxAmountField() {
+    if (maxAmountField.getText().isEmpty()) {
+      return Double.MAX_VALUE; // Return a default value or handle this case appropriately
+    } else {
+      return Double.parseDouble(maxAmountField.getText());
+    }
   }
 
   public double getAmountField() {
