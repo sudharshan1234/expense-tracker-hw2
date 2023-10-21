@@ -2,7 +2,6 @@ package model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 // To make the class immutable,
 // All the variables are made private final - to prevent modification
@@ -33,7 +32,7 @@ public class Transaction {
   }
 
   private String generateTimestamp() {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");  
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     return sdf.format(new Date());
   }
 

@@ -2,12 +2,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 import controller.ExpenseTrackerController;
 import model.ExpenseTrackerModel;
 import view.ExpenseTrackerView;
-import model.Transaction;
 import controller.InputValidation;
 import filters.AmountFilter;
 import filters.CategoryFilter;

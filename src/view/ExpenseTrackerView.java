@@ -1,11 +1,8 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import controller.InputValidation;
 
 import java.awt.*;
 import java.text.NumberFormat;
