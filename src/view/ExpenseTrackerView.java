@@ -174,7 +174,7 @@ public class ExpenseTrackerView extends JFrame {
     if (minAmountField.getText().isEmpty()) {
       return Double.MIN_VALUE; // Return a default value or handle this case appropriately
     } else {
-      return Double.parseDouble(minAmountField.getText());
+      return Double.parseDouble(minAmountField.getText().replaceAll(",", ""));
     }
   }
 
@@ -182,7 +182,7 @@ public class ExpenseTrackerView extends JFrame {
     if (maxAmountField.getText().isEmpty()) {
       return Double.MAX_VALUE; // Return a default value or handle this case appropriately
     } else {
-      return Double.parseDouble(maxAmountField.getText());
+      return Double.parseDouble(maxAmountField.getText().replaceAll(",", ""));
     }
   }
 
@@ -190,7 +190,7 @@ public class ExpenseTrackerView extends JFrame {
     if (amountField.getText().isEmpty()) {
       return 0;
     } else {
-      double amount = Double.parseDouble(amountField.getText());
+      double amount = Double.parseDouble(amountField.getText().replaceAll(",", ""));
       return amount;
     }
   }
